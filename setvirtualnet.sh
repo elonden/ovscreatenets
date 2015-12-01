@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###
-## Test is network needs to be created or deleted
+## Test if network needs to be created or deleted
 
 echo "Do you want to create or delete the network  c/d"
 read crde
@@ -44,14 +44,14 @@ case $crde in
     for ((x=1 ; x<=$netnum ; x++)) {
         ovs-vsctl -- --if-exists del-br br5$x""0
         ovs-vsctl add-br br5$x""0
-        echo "Network segment br"$x" created"
+        echo "Network segment br5"$x" created"
     # Add the interfaces to each network
         for ((y=1 ; y<=$intnum ; y++))
             {
                 ip tuntap add mode tap vnet5$x$y
                 ovs-vsctl -- add-port br5$x""0 vnet5$x$y
                 ip link set vnet5$x$y up
-                echo "Interface vnet5"$x$y" on bridge "$x" created"
+                echo "Interface vnet5"$x$y" on bridge br5"$x"0 created"
             }
         }
     ;;
